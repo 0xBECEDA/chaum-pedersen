@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"github.com/google/uuid"
+	"log"
 	v22 "nillion/api/v2"
 	"nillion/internal/storage"
 	"nillion/internal/utils"
@@ -26,15 +27,17 @@ func NewServer(
 }
 
 func (s *Server) Register(_ context.Context, req *v22.RegisterRequest) (*v22.RegisterResponse, error) {
-	y1, err := utils.ParseBigIntParam(req.Y1, "y1")
+	y1, err := utils.ParseBigIntParam(req.GetY1(), "y1")
 	if err != nil {
 		return nil, err
 	}
 
-	y2, err := utils.ParseBigIntParam(req.Y2, "y2")
+	y2, err := utils.ParseBigIntParam(req.GetY2(), "y2")
 	if err != nil {
 		return nil, err
 	}
+
+	log.Printf("user register y1 = %v, y2 = %v", y1.String(), y2.String())
 
 	s.db.RegisterUser(req.GetUser(), y1, y2)
 	return &v22.RegisterResponse{}, nil
@@ -61,8 +64,12 @@ func (s *Server) CreateAuthenticationChallenge(_ context.Context, req *v22.Authe
 		return nil, err
 	}
 
+	log.Printf("user r1 = %v, r2 = %v", r1.String(), r2.String())
+
 	c := s.verifier.GenerateC()
-	if err := s.db.AddAuthValues(authID.String(), req.GetUser(), r1, r2, s.verifier.GenerateC()); err != nil {
+	log.Printf("c = %v", c.String())
+
+	if err := s.db.AddAuthValues(authID.String(), req.GetUser(), r1, r2, c); err != nil {
 		return nil, err
 	}
 
@@ -83,11 +90,14 @@ func (s *Server) VerifyAuthentication(_ context.Context, req *v22.Authentication
 		return nil, err
 	}
 
+	log.Printf("user y1 = %v, y2 = %v", y1.String(), y2.String())
+
 	sVal, err := utils.ParseBigIntParam(req.GetS(), "s")
 	if err != nil {
 		return nil, err
 	}
 
+	log.Printf("user s = %v", sVal.String())
 	if err := s.verifier.Verify(sVal, authData.GetC(), authData.GetR1(), authData.GetR2(), y1, y2); err != nil {
 		// return error if computed r1 and r2 are not same with expected r1 and r2
 		return nil, err

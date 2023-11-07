@@ -24,12 +24,12 @@ func (p *Prover) GenerateK() *big.Int {
 	return p.k
 }
 
-func (p *Prover) CalculateRValues(k *big.Int) (*big.Int, *big.Int) {
+func (p *Prover) CalculateRValues() (*big.Int, *big.Int) {
 	r1, r2 := new(big.Int), new(big.Int)
 
 	// r1 = g^k (mod p)
 	// r2 = h^k (mod p)
-	return r1.Exp(p.g, k, p.p), r2.Exp(p.h, k, p.p)
+	return r1.Exp(p.g, p.k, p.p), r2.Exp(p.h, p.k, p.p)
 }
 
 func (p *Prover) CalculateYValues() (*big.Int, *big.Int) {
