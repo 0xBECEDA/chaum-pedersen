@@ -43,7 +43,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Println(reg.Msg)
+	log.Println("Client: " + reg.Msg)
 
 	// login client on server
 	logResp, err := cl.Login()
@@ -51,5 +51,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Printf("successfull login, session id is %v", logResp.SessionID)
+	log.Printf("Client: successful login, session id is %v", logResp.SessionID)
 }
