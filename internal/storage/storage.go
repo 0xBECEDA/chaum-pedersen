@@ -51,7 +51,12 @@ func (s *Storage) GetUserRegData(userId string) (*big.Int, *big.Int, error) {
 		return nil, nil, ErrUserNotExists
 	}
 
-	return data.y1, data.y2, nil
+	// big ints are pointers
+	// to avoid overwriting create new objects
+	y1 := new(big.Int).Set(data.y1)
+	y2 := new(big.Int).Set(data.y2)
+
+	return y1, y2, nil
 }
 
 func (s *Storage) AddAuthValues(authID, userId string, r1, r2, c *big.Int) error {

@@ -37,17 +37,13 @@ func (s *Server) Register(_ context.Context, req *v22.RegisterRequest) (*v22.Reg
 		return nil, err
 	}
 
-	log.Printf("user register y1 = %v, y2 = %v", y1.String(), y2.String())
-
 	s.db.RegisterUser(req.GetUser(), y1, y2)
+
+	log.Printf("Register: registered user %v", req.GetUser())
 	return &v22.RegisterResponse{}, nil
 }
 
 func (s *Server) CreateAuthenticationChallenge(_ context.Context, req *v22.AuthenticationChallengeRequest) (*v22.AuthenticationChallengeResponse, error) {
-
-	// Store the generated random value `c` and the `auth_id` in the authentication directory
-	// for authentication verification process in the next step
-
 	// We use the google's widely used `uuid` pkg to generate the authID
 	authID, err := uuid.NewRandom()
 	if err != nil {
@@ -64,14 +60,15 @@ func (s *Server) CreateAuthenticationChallenge(_ context.Context, req *v22.Authe
 		return nil, err
 	}
 
-	log.Printf("user r1 = %v, r2 = %v", r1.String(), r2.String())
-
+	// Store the generated random value `c` and the `auth_id` in the authentication directory
+	// for authentication verification process in the next step
 	c := s.verifier.GenerateC()
-	log.Printf("c = %v", c.String())
-
 	if err := s.db.AddAuthValues(authID.String(), req.GetUser(), r1, r2, c); err != nil {
 		return nil, err
 	}
+
+	log.Printf("CreateAuthenticationChallenge: created challenge fot user %v", req.GetUser())
+	log.Printf("CreateAuthenticationChallenge: user auth id %v", authID.String())
 
 	return &v22.AuthenticationChallengeResponse{
 		AuthId: authID.String(),
@@ -90,18 +87,17 @@ func (s *Server) VerifyAuthentication(_ context.Context, req *v22.Authentication
 		return nil, err
 	}
 
-	log.Printf("user y1 = %v, y2 = %v", y1.String(), y2.String())
-
 	sVal, err := utils.ParseBigIntParam(req.GetS(), "s")
 	if err != nil {
 		return nil, err
 	}
 
-	log.Printf("user s = %v", sVal.String())
 	if err := s.verifier.Verify(sVal, authData.GetC(), authData.GetR1(), authData.GetR2(), y1, y2); err != nil {
 		// return error if computed r1 and r2 are not same with expected r1 and r2
 		return nil, err
 	}
+
+	log.Printf("VerifyAuthentication: user with auth id %v verified", req.GetAuthId())
 
 	// If a valid proof is presented - then generate a sessionID and pass it as a response
 	sessionID, err := uuid.NewRandom()
