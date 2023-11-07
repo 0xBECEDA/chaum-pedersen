@@ -5,6 +5,7 @@ import (
 	"sync"
 )
 
+// DB interface makes it easier to use other storage options when needed
 type DB interface {
 	RegisterUser(userId string, y1 *big.Int, y2 *big.Int)
 	GetUserRegData(userId string) (*big.Int, *big.Int, error)
@@ -12,6 +13,7 @@ type DB interface {
 	AddAuthValues(authID, userId string, r1 *big.Int, r2 *big.Int, c *big.Int) error
 }
 
+// Storage is in-memory storage
 type Storage struct {
 	regUsers  *usersDB
 	authUsers *usersAuthDB

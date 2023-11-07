@@ -12,17 +12,19 @@ import (
 )
 
 func main() {
+	// load 'g', 'h', 'p' values from env or set up default values
 	cfg := &client.Config{}
 	if err := cfg.Load(); err != nil {
 		log.Fatal(err)
 	}
 
+	// values should meet specific conditions and should be same with values on server
 	q, err := utils.VerifyInitialValues(cfg.G, cfg.H, cfg.P)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Create the gRPC client
+	// create the gRPC client
 	grpcClientOptions := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 	addr := fmt.Sprintf("%v:%v", cfg.Hostname, cfg.Port)
 
@@ -35,7 +37,7 @@ func main() {
 	prover := zkp.NewProver(cfg.SecretValue, cfg.G, cfg.H, cfg.P, q)
 	cl := client.NewClient(cfg.Username, grpcClient, prover)
 
-	// register client
+	// register client on server
 	reg, err := cl.Register()
 	if err != nil {
 		log.Fatal(err)
@@ -43,7 +45,7 @@ func main() {
 
 	log.Println(reg.Msg)
 
-	// login client
+	// login client on server
 	logResp, err := cl.Login()
 	if err != nil {
 		log.Fatal(err)
