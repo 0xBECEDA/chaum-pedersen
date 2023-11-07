@@ -24,7 +24,12 @@ Full explanation you can find in "[Cryptography: An Introduction (3rd Edition) N
 subsection "3.2. Chaum–Pedersen Protocol."
 
 ## Requirements
-You should have installed docker 20+ version and docker compose 2+ version.  
+To run application you should have installed docker 20+ version and docker compose 2+ version.  
+To generate proto files you should have installed protoc and protoc-gen-go (all proto-files are already generated)
+
+## How to generate proto 
+Being in the root directory of the project, execute the following command:
+```make proto```
 
 ## How to run
 Being in the root directory of the project, execute the following command:
