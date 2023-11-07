@@ -17,6 +17,7 @@ func smallFermatTheoremCheck(v *big.Int, primeOrder *big.Int) (*big.Int, error) 
 
 	rem := new(big.Int)
 	if rem.Mod(v, primeOrder).Cmp(zero) == 0 {
+		// 'a' is divisible by 'p' without reminder
 		return nil, ErrValueNotInGroup
 	}
 
@@ -33,29 +34,34 @@ func smallFermatTheoremCheck(v *big.Int, primeOrder *big.Int) (*big.Int, error) 
 	return nil, ErrValueNotInGroup
 }
 
-// ValueBelongsToGroup checks if value 'v' belongs to prime group with order 'primeOrder'
 func valueBelongsToGroup(v *big.Int, primeOrder *big.Int) (*big.Int, error) {
 	modRes := new(big.Int)
 	modRes.Mod(v, primeOrder)
 
-	if modRes.Cmp(primeOrder) >= 0 {
+	// The value should be in the residue field modulo p - it should have value from 0 to p-1
+	if modRes.Cmp(primeOrder) > 0 {
 		return nil, ErrValueNotInGroup
 	}
 
 	return smallFermatTheoremCheck(v, primeOrder)
 }
 
-func VerifyInitialValues(g, h, q *big.Int) (*big.Int, error) {
-	if !IsPrime(q) {
+// VerifyInitialValues checks if values 'g' and 'h' belong to group p.
+// To pass the check successfully, you need to meet the conditions:
+// 1. The 'p' value is prime number.
+// 2. The values 'g' and 'h' are in the residue field modulo p.
+// 3. We can find such 'q', when g^q mod p = 1 AND h^q mod p = 1
+func VerifyInitialValues(g, h, p *big.Int) (*big.Int, error) {
+	if !IsPrime(p) {
 		return nil, ErrIsNotPrime
 	}
 
-	gOrder, err := valueBelongsToGroup(g, q)
+	gOrder, err := valueBelongsToGroup(g, p)
 	if err != nil {
 		return nil, err
 	}
 
-	hOrder, err := valueBelongsToGroup(h, q)
+	hOrder, err := valueBelongsToGroup(h, p)
 	if err != nil {
 		return nil, err
 	}

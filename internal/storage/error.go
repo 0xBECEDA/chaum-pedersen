@@ -3,5 +3,6 @@ package storage
 import "errors"
 
 var (
-	ErrUserDoNotExist = errors.New("user does not exist")
+	ErrUserNotExists  = errors.New("user doesn't  exist")
+	ErrAuthDoNotExist = errors.New("auth id does not exist")
 )

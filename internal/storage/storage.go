@@ -5,98 +5,88 @@ import (
 	"sync"
 )
 
+// DB interface makes it easier to use other storage options when needed
 type DB interface {
 	RegisterUser(userId string, y1 *big.Int, y2 *big.Int)
-	AddUserRValues(userId string, r1 *big.Int, r2 *big.Int) error
-	AddUserSValue(userId string, s *big.Int) error
-	AddGeneratedC(userId string, c *big.Int) error
-	CleanUpUserSession(userId string) error
+	GetUserRegData(userId string) (*big.Int, *big.Int, error)
+	GetUserAuthData(authID string) (*UserAuth, error)
+	AddAuthValues(authID, userId string, r1 *big.Int, r2 *big.Int, c *big.Int) error
 }
 
-type userData struct {
-	y1 *big.Int
-	y2 *big.Int
-	r1 *big.Int
-	r2 *big.Int
-	c  *big.Int
-	s  *big.Int
-}
-
+// Storage is in-memory storage
 type Storage struct {
-	memoryDB map[string]*userData
-	mut      *sync.Mutex
+	regUsers  *usersDB
+	authUsers *usersAuthDB
 }
 
 func NewStorage() *Storage {
 	return &Storage{
-		memoryDB: make(map[string]*userData),
-		mut:      &sync.Mutex{},
+		regUsers: &usersDB{
+			memoryDB: map[string]*userData{},
+			mut:      &sync.Mutex{},
+		},
+		authUsers: &usersAuthDB{
+			memoryDB: map[string]*UserAuth{},
+			mut:      &sync.Mutex{},
+		},
 	}
 }
 
 func (s *Storage) RegisterUser(userId string, y1 *big.Int, y2 *big.Int) {
-	s.mut.Lock()
-	defer s.mut.Unlock()
+	s.regUsers.mut.Lock()
+	defer s.regUsers.mut.Unlock()
 
-	s.memoryDB[userId] = &userData{
+	s.regUsers.memoryDB[userId] = &userData{
 		y1: y1,
 		y2: y2,
 	}
 }
 
-func (s *Storage) AddUserRValues(userId string, r1 *big.Int, r2 *big.Int) error {
-	s.mut.Lock()
-	defer s.mut.Unlock()
+func (s *Storage) GetUserRegData(userId string) (*big.Int, *big.Int, error) {
+	s.regUsers.mut.Lock()
+	defer s.regUsers.mut.Unlock()
 
-	data, ok := s.memoryDB[userId]
+	data, ok := s.regUsers.memoryDB[userId]
 	if !ok {
-		return ErrUserDoNotExist
+		return nil, nil, ErrUserNotExists
 	}
 
-	data.r1 = r1
-	data.r2 = r2
+	// big ints are pointers
+	// to avoid overwriting create new objects
+	y1 := new(big.Int).Set(data.y1)
+	y2 := new(big.Int).Set(data.y2)
+
+	return y1, y2, nil
+}
+
+func (s *Storage) AddAuthValues(authID, userId string, r1, r2, c *big.Int) error {
+	s.regUsers.mut.Lock()
+	_, ok := s.regUsers.memoryDB[userId]
+	if !ok {
+		return ErrUserNotExists
+	}
+	s.regUsers.mut.Unlock()
+
+	s.authUsers.mut.Lock()
+	defer s.authUsers.mut.Unlock()
+
+	s.authUsers.memoryDB[authID] = &UserAuth{
+		userId: userId,
+		r1:     r1,
+		r2:     r2,
+		c:      c,
+	}
 	return nil
 }
 
-func (s *Storage) AddUserSValue(userId string, sValue *big.Int) error {
-	s.mut.Lock()
-	defer s.mut.Unlock()
+func (s *Storage) GetUserAuthData(authID string) (*UserAuth, error) {
+	s.authUsers.mut.Lock()
+	defer s.authUsers.mut.Unlock()
 
-	data, ok := s.memoryDB[userId]
+	data, ok := s.authUsers.memoryDB[authID]
 	if !ok {
-		return ErrUserDoNotExist
+		return nil, ErrAuthDoNotExist
 	}
 
-	data.s = sValue
-	return nil
-}
-
-func (s *Storage) AddGeneratedC(userId string, c *big.Int) error {
-	s.mut.Lock()
-	defer s.mut.Unlock()
-
-	data, ok := s.memoryDB[userId]
-	if !ok {
-		return ErrUserDoNotExist
-	}
-
-	data.c = c
-	return nil
-}
-
-func (s *Storage) CleanUpUserSession(userId string) error {
-	s.mut.Lock()
-	defer s.mut.Unlock()
-
-	data, ok := s.memoryDB[userId]
-	if !ok {
-		return ErrUserDoNotExist
-	}
-
-	data.r1 = nil
-	data.r2 = nil
-	data.s = nil
-	data.c = nil
-
-	return nil
+	return data, nil
 }
