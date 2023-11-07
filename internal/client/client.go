@@ -37,8 +37,6 @@ type LoginResp struct {
 func (c *Client) Register() (*RegisterResp, error) {
 	y1, y2 := c.prover.CalculateYValues()
 
-	log.Printf("y1 = %v, y2 = %v", y1.String(), y2.String())
-
 	ctx := context.Background()
 	_, err := c.grpcClient.Register(
 		ctx,

@@ -7,6 +7,7 @@ proto:
     		--go-grpc_opt=paths=source_relative \
     		--proto_path=.
 
+
 	protoc api/v2/*.proto \
     		--go_out=. \
     		--go-grpc_out=. \
@@ -14,7 +15,7 @@ proto:
     		--go-grpc_opt=paths=source_relative \
     		--proto_path=.
 
-build: proto
+build:
 	docker build -f ./docker/Dockerfile.server -t server .
 	docker build -f ./docker/Dockerfile.client -t client .
 
