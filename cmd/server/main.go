@@ -30,11 +30,14 @@ func main() {
 	// run grpc server
 	grpcServ := grpc.NewServer()
 	v2.RegisterAuthServer(grpcServ, server.NewServer(verifier, db))
-	listen, err := net.Listen("tcp", "localhost:"+cfg.Port)
+
+	addr := ":" + cfg.Port
+	listen, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
+	log.Printf("server is running on %v", addr)
 	if err := grpcServ.Serve(listen); err != nil {
 		log.Fatal(err)
 	}

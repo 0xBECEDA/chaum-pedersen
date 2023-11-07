@@ -22,22 +22,26 @@ func (ua *UserAuth) GetUserID() string {
 }
 
 func (ua *UserAuth) GetR1() *big.Int {
-	return ua.r1
+	// big ints are pointer
+	// to avoid overwriting create new object
+	return new(big.Int).Set(ua.r1)
 }
 
 func (ua *UserAuth) GetR2() *big.Int {
-	return ua.r2
+	return new(big.Int).Set(ua.r2)
 }
 
 func (ua *UserAuth) GetC() *big.Int {
-	return ua.c
+	return new(big.Int).Set(ua.c)
 }
 
+// usersDB keeps data of registered users
 type usersDB struct {
 	memoryDB map[string]*userData
 	mut      *sync.Mutex
 }
 
+// usersAuthDB keeps data users who started auth process
 type usersAuthDB struct {
 	memoryDB map[string]*UserAuth
 	mut      *sync.Mutex

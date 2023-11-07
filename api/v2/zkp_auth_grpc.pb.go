@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.6.1
-// source: api/v1/zkp_auth.proto
+// source: api/v2/zkp_auth.proto
 
-package api
+package v2
 
 import (
 	context "context"
@@ -179,5 +179,5 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/v1/zkp_auth.proto",
+	Metadata: "api/v2/zkp_auth.proto",
 }
