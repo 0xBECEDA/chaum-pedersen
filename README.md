@@ -23,6 +23,9 @@ The Chaum-Pedersen protocol works as follows:
 Full explanation you can find in "[Cryptography: An Introduction (3rd Edition) Nigel Smart](https://www.cs.umd.edu/~waa/414-F11/IntroToCrypto.pdf)" page 377 section "3. Sigma Protocols"
 subsection "3.2. Chaum–Pedersen Protocol."
 
+## Requirements
+You should have installed docker 20+ version and docker compose 2+ version.  
+
 ## How to run
 Being in the root directory of the project, execute the following command:
 ```make run```
