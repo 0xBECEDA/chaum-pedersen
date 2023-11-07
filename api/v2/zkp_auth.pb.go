@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.31.0
 // 	protoc        v3.6.1
-// source: api/v1/zkp_auth.proto
+// source: api/v2/zkp_auth.proto
 
-package api
+package v2
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -26,14 +26,14 @@ type RegisterRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	User string `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
-	Y1   int64  `protobuf:"varint,2,opt,name=y1,proto3" json:"y1,omitempty"`
-	Y2   int64  `protobuf:"varint,3,opt,name=y2,proto3" json:"y2,omitempty"`
+	Y1   string `protobuf:"bytes,2,opt,name=y1,proto3" json:"y1,omitempty"`
+	Y2   string `protobuf:"bytes,3,opt,name=y2,proto3" json:"y2,omitempty"`
 }
 
 func (x *RegisterRequest) Reset() {
 	*x = RegisterRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v1_zkp_auth_proto_msgTypes[0]
+		mi := &file_api_v2_zkp_auth_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -46,7 +46,7 @@ func (x *RegisterRequest) String() string {
 func (*RegisterRequest) ProtoMessage() {}
 
 func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v1_zkp_auth_proto_msgTypes[0]
+	mi := &file_api_v2_zkp_auth_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -59,7 +59,7 @@ func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterRequest.ProtoReflect.Descriptor instead.
 func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return file_api_v1_zkp_auth_proto_rawDescGZIP(), []int{0}
+	return file_api_v2_zkp_auth_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *RegisterRequest) GetUser() string {
@@ -69,18 +69,18 @@ func (x *RegisterRequest) GetUser() string {
 	return ""
 }
 
-func (x *RegisterRequest) GetY1() int64 {
+func (x *RegisterRequest) GetY1() string {
 	if x != nil {
 		return x.Y1
 	}
-	return 0
+	return ""
 }
 
-func (x *RegisterRequest) GetY2() int64 {
+func (x *RegisterRequest) GetY2() string {
 	if x != nil {
 		return x.Y2
 	}
-	return 0
+	return ""
 }
 
 type RegisterResponse struct {
@@ -92,7 +92,7 @@ type RegisterResponse struct {
 func (x *RegisterResponse) Reset() {
 	*x = RegisterResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v1_zkp_auth_proto_msgTypes[1]
+		mi := &file_api_v2_zkp_auth_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -105,7 +105,7 @@ func (x *RegisterResponse) String() string {
 func (*RegisterResponse) ProtoMessage() {}
 
 func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v1_zkp_auth_proto_msgTypes[1]
+	mi := &file_api_v2_zkp_auth_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -118,7 +118,7 @@ func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterResponse.ProtoReflect.Descriptor instead.
 func (*RegisterResponse) Descriptor() ([]byte, []int) {
-	return file_api_v1_zkp_auth_proto_rawDescGZIP(), []int{1}
+	return file_api_v2_zkp_auth_proto_rawDescGZIP(), []int{1}
 }
 
 type AuthenticationChallengeRequest struct {
@@ -127,14 +127,14 @@ type AuthenticationChallengeRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	User string `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
-	R1   int64  `protobuf:"varint,2,opt,name=r1,proto3" json:"r1,omitempty"`
-	R2   int64  `protobuf:"varint,3,opt,name=r2,proto3" json:"r2,omitempty"`
+	R1   string `protobuf:"bytes,2,opt,name=r1,proto3" json:"r1,omitempty"`
+	R2   string `protobuf:"bytes,3,opt,name=r2,proto3" json:"r2,omitempty"`
 }
 
 func (x *AuthenticationChallengeRequest) Reset() {
 	*x = AuthenticationChallengeRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v1_zkp_auth_proto_msgTypes[2]
+		mi := &file_api_v2_zkp_auth_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -147,7 +147,7 @@ func (x *AuthenticationChallengeRequest) String() string {
 func (*AuthenticationChallengeRequest) ProtoMessage() {}
 
 func (x *AuthenticationChallengeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v1_zkp_auth_proto_msgTypes[2]
+	mi := &file_api_v2_zkp_auth_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -160,7 +160,7 @@ func (x *AuthenticationChallengeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuthenticationChallengeRequest.ProtoReflect.Descriptor instead.
 func (*AuthenticationChallengeRequest) Descriptor() ([]byte, []int) {
-	return file_api_v1_zkp_auth_proto_rawDescGZIP(), []int{2}
+	return file_api_v2_zkp_auth_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *AuthenticationChallengeRequest) GetUser() string {
@@ -170,18 +170,18 @@ func (x *AuthenticationChallengeRequest) GetUser() string {
 	return ""
 }
 
-func (x *AuthenticationChallengeRequest) GetR1() int64 {
+func (x *AuthenticationChallengeRequest) GetR1() string {
 	if x != nil {
 		return x.R1
 	}
-	return 0
+	return ""
 }
 
-func (x *AuthenticationChallengeRequest) GetR2() int64 {
+func (x *AuthenticationChallengeRequest) GetR2() string {
 	if x != nil {
 		return x.R2
 	}
-	return 0
+	return ""
 }
 
 type AuthenticationChallengeResponse struct {
@@ -190,13 +190,13 @@ type AuthenticationChallengeResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	AuthId string `protobuf:"bytes,1,opt,name=auth_id,json=authId,proto3" json:"auth_id,omitempty"`
-	C      int64  `protobuf:"varint,2,opt,name=c,proto3" json:"c,omitempty"`
+	C      string `protobuf:"bytes,2,opt,name=c,proto3" json:"c,omitempty"`
 }
 
 func (x *AuthenticationChallengeResponse) Reset() {
 	*x = AuthenticationChallengeResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v1_zkp_auth_proto_msgTypes[3]
+		mi := &file_api_v2_zkp_auth_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -209,7 +209,7 @@ func (x *AuthenticationChallengeResponse) String() string {
 func (*AuthenticationChallengeResponse) ProtoMessage() {}
 
 func (x *AuthenticationChallengeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v1_zkp_auth_proto_msgTypes[3]
+	mi := &file_api_v2_zkp_auth_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -222,7 +222,7 @@ func (x *AuthenticationChallengeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuthenticationChallengeResponse.ProtoReflect.Descriptor instead.
 func (*AuthenticationChallengeResponse) Descriptor() ([]byte, []int) {
-	return file_api_v1_zkp_auth_proto_rawDescGZIP(), []int{3}
+	return file_api_v2_zkp_auth_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *AuthenticationChallengeResponse) GetAuthId() string {
@@ -232,11 +232,11 @@ func (x *AuthenticationChallengeResponse) GetAuthId() string {
 	return ""
 }
 
-func (x *AuthenticationChallengeResponse) GetC() int64 {
+func (x *AuthenticationChallengeResponse) GetC() string {
 	if x != nil {
 		return x.C
 	}
-	return 0
+	return ""
 }
 
 type AuthenticationAnswerRequest struct {
@@ -245,13 +245,13 @@ type AuthenticationAnswerRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	AuthId string `protobuf:"bytes,1,opt,name=auth_id,json=authId,proto3" json:"auth_id,omitempty"`
-	S      int64  `protobuf:"varint,2,opt,name=s,proto3" json:"s,omitempty"`
+	S      string `protobuf:"bytes,2,opt,name=s,proto3" json:"s,omitempty"`
 }
 
 func (x *AuthenticationAnswerRequest) Reset() {
 	*x = AuthenticationAnswerRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v1_zkp_auth_proto_msgTypes[4]
+		mi := &file_api_v2_zkp_auth_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -264,7 +264,7 @@ func (x *AuthenticationAnswerRequest) String() string {
 func (*AuthenticationAnswerRequest) ProtoMessage() {}
 
 func (x *AuthenticationAnswerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v1_zkp_auth_proto_msgTypes[4]
+	mi := &file_api_v2_zkp_auth_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -277,7 +277,7 @@ func (x *AuthenticationAnswerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuthenticationAnswerRequest.ProtoReflect.Descriptor instead.
 func (*AuthenticationAnswerRequest) Descriptor() ([]byte, []int) {
-	return file_api_v1_zkp_auth_proto_rawDescGZIP(), []int{4}
+	return file_api_v2_zkp_auth_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *AuthenticationAnswerRequest) GetAuthId() string {
@@ -287,11 +287,11 @@ func (x *AuthenticationAnswerRequest) GetAuthId() string {
 	return ""
 }
 
-func (x *AuthenticationAnswerRequest) GetS() int64 {
+func (x *AuthenticationAnswerRequest) GetS() string {
 	if x != nil {
 		return x.S
 	}
-	return 0
+	return ""
 }
 
 type AuthenticationAnswerResponse struct {
@@ -305,7 +305,7 @@ type AuthenticationAnswerResponse struct {
 func (x *AuthenticationAnswerResponse) Reset() {
 	*x = AuthenticationAnswerResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v1_zkp_auth_proto_msgTypes[5]
+		mi := &file_api_v2_zkp_auth_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -318,7 +318,7 @@ func (x *AuthenticationAnswerResponse) String() string {
 func (*AuthenticationAnswerResponse) ProtoMessage() {}
 
 func (x *AuthenticationAnswerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v1_zkp_auth_proto_msgTypes[5]
+	mi := &file_api_v2_zkp_auth_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -331,7 +331,7 @@ func (x *AuthenticationAnswerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuthenticationAnswerResponse.ProtoReflect.Descriptor instead.
 func (*AuthenticationAnswerResponse) Descriptor() ([]byte, []int) {
-	return file_api_v1_zkp_auth_proto_rawDescGZIP(), []int{5}
+	return file_api_v2_zkp_auth_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *AuthenticationAnswerResponse) GetSessionId() string {
@@ -341,31 +341,31 @@ func (x *AuthenticationAnswerResponse) GetSessionId() string {
 	return ""
 }
 
-var File_api_v1_zkp_auth_proto protoreflect.FileDescriptor
+var File_api_v2_zkp_auth_proto protoreflect.FileDescriptor
 
-var file_api_v1_zkp_auth_proto_rawDesc = []byte{
-	0x0a, 0x15, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x7a, 0x6b, 0x70, 0x5f, 0x61, 0x75, 0x74,
+var file_api_v2_zkp_auth_proto_rawDesc = []byte{
+	0x0a, 0x15, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x32, 0x2f, 0x7a, 0x6b, 0x70, 0x5f, 0x61, 0x75, 0x74,
 	0x68, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x08, 0x7a, 0x6b, 0x70, 0x5f, 0x61, 0x75, 0x74,
 	0x68, 0x22, 0x45, 0x0a, 0x0f, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x79, 0x31, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x79, 0x31, 0x12, 0x0e, 0x0a, 0x02, 0x79, 0x32, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x79, 0x32, 0x22, 0x12, 0x0a, 0x10, 0x52, 0x65, 0x67, 0x69,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x79, 0x31, 0x12, 0x0e, 0x0a, 0x02, 0x79, 0x32, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x79, 0x32, 0x22, 0x12, 0x0a, 0x10, 0x52, 0x65, 0x67, 0x69,
 	0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x54, 0x0a, 0x1e,
 	0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x43, 0x68,
 	0x61, 0x6c, 0x6c, 0x65, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12,
 	0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x75, 0x73,
-	0x65, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x72, 0x31, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02,
-	0x72, 0x31, 0x12, 0x0e, 0x0a, 0x02, 0x72, 0x32, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02,
+	0x65, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x72, 0x31, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
+	0x72, 0x31, 0x12, 0x0e, 0x0a, 0x02, 0x72, 0x32, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
 	0x72, 0x32, 0x22, 0x48, 0x0a, 0x1f, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61,
 	0x74, 0x69, 0x6f, 0x6e, 0x43, 0x68, 0x61, 0x6c, 0x6c, 0x65, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x73,
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x17, 0x0a, 0x07, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x69, 0x64,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x75, 0x74, 0x68, 0x49, 0x64, 0x12, 0x0c,
-	0x0a, 0x01, 0x63, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x01, 0x63, 0x22, 0x44, 0x0a, 0x1b,
+	0x0a, 0x01, 0x63, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x01, 0x63, 0x22, 0x44, 0x0a, 0x1b,
 	0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x6e,
 	0x73, 0x77, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x61,
 	0x75, 0x74, 0x68, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x75,
-	0x74, 0x68, 0x49, 0x64, 0x12, 0x0c, 0x0a, 0x01, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x74, 0x68, 0x49, 0x64, 0x12, 0x0c, 0x0a, 0x01, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
 	0x01, 0x73, 0x22, 0x3d, 0x0a, 0x1c, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61,
 	0x74, 0x69, 0x6f, 0x6e, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
 	0x73, 0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64,
@@ -389,24 +389,24 @@ var file_api_v1_zkp_auth_proto_rawDesc = []byte{
 	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x7a, 0x6b, 0x70, 0x5f, 0x61, 0x75, 0x74,
 	0x68, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
 	0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
-	0x42, 0x0e, 0x5a, 0x0c, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x61, 0x70, 0x69,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x42, 0x11, 0x5a, 0x0f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x61, 0x70, 0x69,
+	0x2f, 0x76, 0x32, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_api_v1_zkp_auth_proto_rawDescOnce sync.Once
-	file_api_v1_zkp_auth_proto_rawDescData = file_api_v1_zkp_auth_proto_rawDesc
+	file_api_v2_zkp_auth_proto_rawDescOnce sync.Once
+	file_api_v2_zkp_auth_proto_rawDescData = file_api_v2_zkp_auth_proto_rawDesc
 )
 
-func file_api_v1_zkp_auth_proto_rawDescGZIP() []byte {
-	file_api_v1_zkp_auth_proto_rawDescOnce.Do(func() {
-		file_api_v1_zkp_auth_proto_rawDescData = protoimpl.X.CompressGZIP(file_api_v1_zkp_auth_proto_rawDescData)
+func file_api_v2_zkp_auth_proto_rawDescGZIP() []byte {
+	file_api_v2_zkp_auth_proto_rawDescOnce.Do(func() {
+		file_api_v2_zkp_auth_proto_rawDescData = protoimpl.X.CompressGZIP(file_api_v2_zkp_auth_proto_rawDescData)
 	})
-	return file_api_v1_zkp_auth_proto_rawDescData
+	return file_api_v2_zkp_auth_proto_rawDescData
 }
 
-var file_api_v1_zkp_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_api_v1_zkp_auth_proto_goTypes = []interface{}{
+var file_api_v2_zkp_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_api_v2_zkp_auth_proto_goTypes = []interface{}{
 	(*RegisterRequest)(nil),                 // 0: zkp_auth.RegisterRequest
 	(*RegisterResponse)(nil),                // 1: zkp_auth.RegisterResponse
 	(*AuthenticationChallengeRequest)(nil),  // 2: zkp_auth.AuthenticationChallengeRequest
@@ -414,7 +414,7 @@ var file_api_v1_zkp_auth_proto_goTypes = []interface{}{
 	(*AuthenticationAnswerRequest)(nil),     // 4: zkp_auth.AuthenticationAnswerRequest
 	(*AuthenticationAnswerResponse)(nil),    // 5: zkp_auth.AuthenticationAnswerResponse
 }
-var file_api_v1_zkp_auth_proto_depIdxs = []int32{
+var file_api_v2_zkp_auth_proto_depIdxs = []int32{
 	0, // 0: zkp_auth.Auth.Register:input_type -> zkp_auth.RegisterRequest
 	2, // 1: zkp_auth.Auth.CreateAuthenticationChallenge:input_type -> zkp_auth.AuthenticationChallengeRequest
 	4, // 2: zkp_auth.Auth.VerifyAuthentication:input_type -> zkp_auth.AuthenticationAnswerRequest
@@ -428,13 +428,13 @@ var file_api_v1_zkp_auth_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_api_v1_zkp_auth_proto_init() }
-func file_api_v1_zkp_auth_proto_init() {
-	if File_api_v1_zkp_auth_proto != nil {
+func init() { file_api_v2_zkp_auth_proto_init() }
+func file_api_v2_zkp_auth_proto_init() {
+	if File_api_v2_zkp_auth_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_api_v1_zkp_auth_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_api_v2_zkp_auth_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RegisterRequest); i {
 			case 0:
 				return &v.state
@@ -446,7 +446,7 @@ func file_api_v1_zkp_auth_proto_init() {
 				return nil
 			}
 		}
-		file_api_v1_zkp_auth_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_api_v2_zkp_auth_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RegisterResponse); i {
 			case 0:
 				return &v.state
@@ -458,7 +458,7 @@ func file_api_v1_zkp_auth_proto_init() {
 				return nil
 			}
 		}
-		file_api_v1_zkp_auth_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_api_v2_zkp_auth_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AuthenticationChallengeRequest); i {
 			case 0:
 				return &v.state
@@ -470,7 +470,7 @@ func file_api_v1_zkp_auth_proto_init() {
 				return nil
 			}
 		}
-		file_api_v1_zkp_auth_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_api_v2_zkp_auth_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AuthenticationChallengeResponse); i {
 			case 0:
 				return &v.state
@@ -482,7 +482,7 @@ func file_api_v1_zkp_auth_proto_init() {
 				return nil
 			}
 		}
-		file_api_v1_zkp_auth_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_api_v2_zkp_auth_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AuthenticationAnswerRequest); i {
 			case 0:
 				return &v.state
@@ -494,7 +494,7 @@ func file_api_v1_zkp_auth_proto_init() {
 				return nil
 			}
 		}
-		file_api_v1_zkp_auth_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_api_v2_zkp_auth_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AuthenticationAnswerResponse); i {
 			case 0:
 				return &v.state
@@ -511,18 +511,18 @@ func file_api_v1_zkp_auth_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_api_v1_zkp_auth_proto_rawDesc,
+			RawDescriptor: file_api_v2_zkp_auth_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_v1_zkp_auth_proto_goTypes,
-		DependencyIndexes: file_api_v1_zkp_auth_proto_depIdxs,
-		MessageInfos:      file_api_v1_zkp_auth_proto_msgTypes,
+		GoTypes:           file_api_v2_zkp_auth_proto_goTypes,
+		DependencyIndexes: file_api_v2_zkp_auth_proto_depIdxs,
+		MessageInfos:      file_api_v2_zkp_auth_proto_msgTypes,
 	}.Build()
-	File_api_v1_zkp_auth_proto = out.File
-	file_api_v1_zkp_auth_proto_rawDesc = nil
-	file_api_v1_zkp_auth_proto_goTypes = nil
-	file_api_v1_zkp_auth_proto_depIdxs = nil
+	File_api_v2_zkp_auth_proto = out.File
+	file_api_v2_zkp_auth_proto_rawDesc = nil
+	file_api_v2_zkp_auth_proto_goTypes = nil
+	file_api_v2_zkp_auth_proto_depIdxs = nil
 }

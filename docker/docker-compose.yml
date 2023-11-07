@@ -1,0 +1,29 @@
+version: "3"
+services:
+  server:
+    container_name: server
+    hostname: server
+    image: server:latest
+    environment:
+      PORT: 8080
+      G_VALUE: 123    # g, h and p values should be same for client and p should be prime number
+      H_VALUE: 187
+      P_VALUE: 229
+    expose:
+      - "8080"
+  client:
+    container_name: client
+    image: client:latest
+    environment:
+      PORT: 8080
+      HOSTNAME: server
+      SECRET: 234
+      USERNAME: i_am_user
+      G_VALUE: 123
+      H_VALUE: 187
+      P_VALUE: 229
+    expose:
+      - "8080"
+    restart: "on-failure"
+    depends_on:
+     - server
