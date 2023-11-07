@@ -12,14 +12,15 @@ const (
 )
 
 func ReadProtocolValueFormEnv() (*big.Int, *big.Int, *big.Int, error) {
+	var err error
 	g := new(big.Int)
 	gStr := os.Getenv("G_VALUE")
 	if gStr == "" {
 		g = big.NewInt(defaultG)
 	} else {
-		_, success := g.SetString(gStr, 10)
-		if !success {
-			return nil, nil, nil, ErrSetValue
+		g, err = ParseBigIntParam(gStr, "g")
+		if err != nil {
+			return nil, nil, nil, err
 		}
 	}
 
@@ -28,9 +29,9 @@ func ReadProtocolValueFormEnv() (*big.Int, *big.Int, *big.Int, error) {
 	if hStr == "" {
 		h = big.NewInt(defaultH)
 	} else {
-		_, success := h.SetString(hStr, 10)
-		if !success {
-			return nil, nil, nil, ErrSetValue
+		h, err = ParseBigIntParam(hStr, "h")
+		if err != nil {
+			return nil, nil, nil, err
 		}
 	}
 
@@ -39,9 +40,9 @@ func ReadProtocolValueFormEnv() (*big.Int, *big.Int, *big.Int, error) {
 	if pStr == "" {
 		p = big.NewInt(defaultP)
 	} else {
-		_, success := p.SetString(pStr, 10)
-		if !success {
-			return nil, nil, nil, ErrSetValue
+		p, err = ParseBigIntParam(pStr, "p")
+		if err != nil {
+			return nil, nil, nil, err
 		}
 	}
 	return g, h, p, nil

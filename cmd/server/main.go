@@ -4,7 +4,7 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	"nillion/internal/api"
+	"nillion/api/v2"
 	"nillion/internal/server"
 	"nillion/internal/storage"
 	"nillion/internal/utils"
@@ -25,7 +25,7 @@ func main() {
 	verifier := zkp.NewVerifier(cfg.G, cfg.H, q, cfg.P)
 	db := storage.NewStorage()
 	grpcServ := grpc.NewServer()
-	api.RegisterAuthServer(grpcServ, server.NewServer(verifier, db))
+	v2.RegisterAuthServer(grpcServ, server.NewServer(verifier, db))
 
 	listen, err := net.Listen("tcp", cfg.Port)
 	if err != nil {

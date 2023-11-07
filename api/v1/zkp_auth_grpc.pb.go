@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.6.1
-// source: internal/api/zkp_auth.api
+// source: internal/api/v1/zkp_auth.proto
 
 package api
 
@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	"nillion/internal/server"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -101,7 +100,7 @@ type UnsafeAuthServer interface {
 	mustEmbedUnimplementedAuthServer()
 }
 
-func RegisterAuthServer(s grpc.ServiceRegistrar, srv *server.Server) {
+func RegisterAuthServer(s grpc.ServiceRegistrar, srv AuthServer) {
 	s.RegisterService(&Auth_ServiceDesc, srv)
 }
 
@@ -180,5 +179,5 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "internal/api/zkp_auth.api",
+	Metadata: "internal/api/v1/zkp_auth.proto",
 }

@@ -9,9 +9,9 @@ type Prover struct {
 	x, g, h, p, q, k *big.Int
 }
 
-func NewProver(g, h, p, q *big.Int) *Prover {
+func NewProver(x, g, h, p, q *big.Int) *Prover {
 	return &Prover{
-		x: utils.GenerateRandomNonZeroValue(),
+		x: x,
 		g: g,
 		h: h,
 		p: p,
