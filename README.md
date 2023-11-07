@@ -34,3 +34,7 @@ Expected behavior:
 
 To specify g, h, p and secret prover value (x) you can edit ./docker/docker-compose.yml file. 
 Remember, that g, h and p values should be same for server and client.
+
+## How to stop 
+Being in the root directory of the project, execute the following command:
+```make stop```
